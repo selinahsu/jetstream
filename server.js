@@ -7,12 +7,9 @@ app.get('/', (req, res) => {
   res.send('Hello World!');
 });
 
-app.get('/api/testdata', (req, res) => {
-  const testData = [
-      {id: 1, fruit: 'apple'},
-      {id: 2, fruit: 'peach'},
-      {id: 3, fruit: 'kiwi'},
-  ];
+app.get('/api/appletest', (req, res) => {
+  const appletest = 
+    {id: 1, fruit: 'apple'};
   res.json(testData);
 }); 
 
