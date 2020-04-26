@@ -3,6 +3,8 @@ import NavbarComp from './components/navbar.js'
 import FormCard from './components/form-card.js'
 import Splash from './components/splash.js'
 
+import DataContextProvider from './contexts/DataContext';
+
 import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
@@ -23,7 +25,9 @@ class App extends React.Component{
         <Row>
           <Col xs={1}></Col>
           <Col xs={5}>
-            <FormCard onSubmit={this.formSubmit}/>
+            <DataContextProvider>
+              <FormCard onSubmit={this.formSubmit}/>
+            </DataContextProvider>
           </Col>
           <Col xs={5}>
             <Splash />
