@@ -1,6 +1,7 @@
 import React from 'react';
 import NavbarComp from '../components/navbar.js'
 
+import plane from '../assets/plane.png'
 import house from '../assets/house.png';
 import car from '../assets/car.png';
 import map from '../assets/map.png';
@@ -17,7 +18,29 @@ import './Result.scss';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 class Result extends React.Component{
+  state = {
+    loading: true
+  }
+  componentDidMount() {
+    setTimeout(() => {
+      this.setState({
+        loading: false
+      });
+    }, 3000)
+  }
   render() {
+    if (this.state.loading)
+      return (
+        <div className="transition-screen"> 
+          <NavbarComp />
+          <div style={{display: 'flex',  justifyContent:'center', alignItems:'center', height: '100vh'}}>
+            <div style={{textAlign: 'center'}}>
+              <img src={plane} height="75"/>
+              <p>Your request is in flight . . . </p>
+            </div>
+          </div>
+        </div>
+      )
     return (
       <div className="result">  
       <NavbarComp />
@@ -72,7 +95,7 @@ class Result extends React.Component{
           </Col>
           <Col xs={7}>
             <Card className="mb-4 p-5">
-              <h4>Generates</h4>
+              <h4>Your trip generates</h4>
               <Row className="justify-content-between mt-2">
                 <Col xs={6}>
                   <Card className="gen-cards px-3 py-3">
