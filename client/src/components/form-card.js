@@ -22,7 +22,7 @@ function FormContent(props) {
   if (info.flightType === "multi-city") 
     return null;
   return (
-    <form onSubmit={props.handleSubmit}>
+    <form onSubmit={props.handleSubmit} action="/result">
       <div className="amt-input">
         <label>Destination</label><br />
         <input
@@ -48,7 +48,7 @@ function FormContent(props) {
       <label>Number of Passengers:</label><br />
       <input 
         type="range" 
-        className="slider" 
+        className="slider mb-3" 
         min="0" max="10" 
         value={info.passengers}
         onChange={(event) => {
@@ -58,14 +58,24 @@ function FormContent(props) {
       /> 
       <span>{info.passengers}</span>
       <br />
+      <label>Flying With:</label><br />
+      <select id="seat" className="mb-3">
+        <option value="" selected disabled>Select an option</option>
+        <option value="economy">Delta Airlines</option>
+        <option value="business">American Airlines</option>
+        <option value="first-class">Southwest Airlines</option>
+        <option value="first-class">United Airlines</option>
+      </select> 
+      <br />
       <label>Seat Class:</label><br />
-      <select id="seat">
+      <select id="seat" className="mb-4">
+        <option value="" selected disabled>Select an option</option>
         <option value="economy">Economy</option>
         <option value="business">Business</option>
         <option value="first-class">First Class</option>
       </select> 
       <br />
-      <button className="mt-4">Calculate</button>
+      <button>Calculate</button>
     </form>
   );
 }

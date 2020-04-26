@@ -8,7 +8,9 @@ class NavbarComp extends React.Component {
     return (
       <Navbar bg="light" expand="lg">
         <Col xs={{offset: 1}}>
-          <img src={logo} height="30" alt="Jetstream Logo" />
+          <a href='/'>
+            <img src={logo} height="30" alt="Jetstream Logo"/>
+          </a>
         </Col>
       </Navbar>
     );
