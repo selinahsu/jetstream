@@ -45,11 +45,11 @@ class Result extends React.Component{
       <div className="result">  
       <NavbarComp />
       <Container className="mt-5">
-        <Row>
+        <Row className="mb-5">
           <Col xs={5}>
             <Card className="mb-4 p-5">
               <h5>Flying <b>Toronto, ON</b> to <b>Houston, TX</b></h5>
-              <p>Distance: 1560 miles</p>
+              <p>Distance: 1302 miles</p>
               <img src={map} className="mb-4" width="100%"/>
               <Button 
                 href='/'
