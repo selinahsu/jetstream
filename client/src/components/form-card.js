@@ -28,7 +28,7 @@ function FormContent(props) {
         <input
           type="text"
           placeholder="Austin"
-          value={props.username}
+          value={info.destination}
           onChange={props.handleChange}
           required
         />
@@ -39,7 +39,7 @@ function FormContent(props) {
         <input
           type="text"
           placeholder="London"
-          value={props.username}
+          value={info.departure}
           onChange={props.handleChange}
           required
         />
@@ -56,9 +56,9 @@ function FormContent(props) {
           //console.log(passengers);
         }}
       /> 
-      <span>{info.passengers}</span>
+      <span className="ml-3">{info.passengers}</span>
       <br />
-      <label>Flying With:</label><br />
+      <label>Airline:</label><br />
       <select id="seat" className="mb-3">
         <option value="" selected disabled>Select an option</option>
         <option value="economy">Delta Airlines</option>
@@ -102,7 +102,7 @@ class FormCard extends React.Component {
               id="one-way" 
               name="flight-type" 
               value="one-way"/>
-            <label>One Way</label>
+            <label className="pl-1">One Way</label>
           </div>
           <div>
             <input 
@@ -114,7 +114,7 @@ class FormCard extends React.Component {
               id="round-trip"
               name="flight-type" 
               value="round-trip"/>
-            <label>Round Trip</label>
+            <label className="pl-1">Round Trip</label>
           </div>
           <div>
             <input 
@@ -125,7 +125,7 @@ class FormCard extends React.Component {
               }}
               id="multi-city" name="flight-type" 
               value="multi-city"/>
-            <label>Multi-City</label>
+            <label className="pl-1">Multi-City</label>
           </div>
         </Row>
         </form>
