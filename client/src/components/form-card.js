@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import './form-card.scss';
 import Card from 'react-bootstrap/Card';
 import Row from 'react-bootstrap/Row';
@@ -14,6 +14,8 @@ function UnavailableMssg(props) {
 }
 
 function FormContent(props) {
+  const [passengerCount, setPassengers] = useState(2);
+
   if (props.flightType === "multi-city") 
     return null;
   return (
@@ -41,7 +43,17 @@ function FormContent(props) {
       </div>
       <br />
       <label>Number of Passengers:</label><br />
-      <input type="range" className="slider" id="points" min="0" max="10"/> 
+      <input 
+        type="range" 
+        className="slider" 
+        min="0" max="10" 
+        value={passengerCount}
+        onChange={(event) => {
+          setPassengers(event.target.value);
+          //console.log(passengerCount);
+        }}
+      /> 
+      <span>{passengerCount}</span>
       <br />
       <label>Seat Class:</label><br />
       <select id="seat">
@@ -60,7 +72,6 @@ class FormCard extends React.Component {
     flightType: "one-way",
     destination: "",
     departing: "",
-    passengers: 2,
     seat: ""
   }
   handleFlightChange = (event) => {
@@ -69,11 +80,11 @@ class FormCard extends React.Component {
     );
     // console.log(this.state.flightType);
   }
-  // handleSubmit = (event) => {
-  //   this.setState(
-  //     { username: event.target.value }
-  //   )
-  // }
+  handleSubmit = (event) => {
+    this.setState(
+      { username: event.target.value }
+    )
+  }
   render() {
     return (
       <Card className="mt-5 p-5">
@@ -111,7 +122,7 @@ class FormCard extends React.Component {
         </Row>
         </form>
         <UnavailableMssg flightType={this.state.flightType}/>
-        <FormContent flightType={this.state.flightType}/>
+        <FormContent flightType={this.state.flightType} />
       </Card>
     );
   }

@@ -10,10 +10,8 @@ app.get('/', (req, res) => {
 app.get('/api/appletest', (req, res) => {
   const appletest = 
     {id: 1, fruit: 'apple'};
-  res.json(testData);
+  res.json(appletest);
 }); 
-
-const monsters = [{ type: 'werewolf' }, { type: 'hydra' }, { type: 'chupacabra' }];
 
 /* Middleware */
 const getFlight = (req, res, next) => {
@@ -22,7 +20,7 @@ const getFlight = (req, res, next) => {
   next();
 }
 
-app.get('/api/test', getFlight)
+app.get('/api/flight', getFlight)
 
 //app.use(getFlight);
 
