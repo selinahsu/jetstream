@@ -3,6 +3,8 @@ import './form-card.scss';
 import Card from 'react-bootstrap/Card';
 import Row from 'react-bootstrap/Row';
 
+import axios from 'axios';
+
 import { DataContext } from '../contexts/DataContext';
 
 function UnavailableMssg(props) {
@@ -18,7 +20,11 @@ function UnavailableMssg(props) {
 
 function FormContent(props) {
   const info = useContext(DataContext);
-  //const { setPassengers } = this.context;
+
+  const handleSubmit = (event) => {
+    event.preventDefault();
+  };
+
   if (info.flightType === "multi-city") 
     return null;
   return (
@@ -27,9 +33,12 @@ function FormContent(props) {
         <label>Destination</label><br />
         <input
           type="text"
-          placeholder="Austin"
+          placeholder="e.g. Austin"
           value={info.destination}
-          onChange={props.handleChange}
+          onChange={(event) => {
+            info.setDestination(event.target.value)
+            console.log(info.destination);
+          }}
           required
         />
       </div>
@@ -38,9 +47,12 @@ function FormContent(props) {
         <label>Departing From</label><br />
         <input
           type="text"
-          placeholder="London"
+          placeholder="e.g. London"
           value={info.departure}
-          onChange={props.handleChange}
+          onChange={(event) => {
+            info.setDeparture(event.target.value)
+            console.log(info.departure);
+          }}
           required
         />
       </div>
@@ -53,13 +65,19 @@ function FormContent(props) {
         value={info.passengers}
         onChange={(event) => {
           info.setPassengers(event.target.value)
-          //console.log(passengers);
+          //console.log(info.passengers);
         }}
       /> 
       <span className="ml-3">{info.passengers}</span>
       <br />
+
       <label>Airline:</label><br />
-      <select id="seat" className="mb-3">
+      <select id="seat" className="mb-3"
+        onChange={(event) => {
+          info.setAirline(event.target.value)
+          //console.log(info.airline);
+        }}
+      >
         <option value="" selected disabled>Select an option</option>
         <option value="economy">Delta Airlines</option>
         <option value="business">American Airlines</option>
@@ -67,8 +85,14 @@ function FormContent(props) {
         <option value="first-class">United Airlines</option>
       </select> 
       <br />
+
       <label>Seat Class:</label><br />
-      <select id="seat" className="mb-4">
+      <select id="seat" className="mb-4"
+        onChange={(event) => {
+          info.setSeat(event.target.value)
+          //console.log(info.seat);
+        }}
+      >
         <option value="" selected disabled>Select an option</option>
         <option value="economy">Economy</option>
         <option value="business">Business</option>
@@ -83,11 +107,26 @@ function FormContent(props) {
 class FormCard extends React.Component {
   static contextType = DataContext;
   state = {
-
+    
   }
+  // handleSubmit = () => {
+  //   const info = this.context;
+  //   axios.post('/api/flight', {
+  //     params: {
+  //       destination: info.destination,
+  //       departure: info.departure
+  //     }
+  //   })
+  //   .then((response) => {
+  //     console.log(response);
+  //     console.log(`here is the destination: ${this.context.setDestination}`);
+  //   }, (error) => {
+  //     console.log(error);
+  //   });
+  // }
   render() {
     /* Destructure the context */
-    const { flightType, destination, departure, seat, setFlightType } = this.context;
+    const { flightType, setFlightType } = this.context;
     return (
       <Card className="mt-5 p-5">
         <form>
@@ -130,7 +169,7 @@ class FormCard extends React.Component {
         </Row>
         </form>
         <UnavailableMssg/>
-        <FormContent/>
+        <FormContent />
       </Card>
     );
   }
