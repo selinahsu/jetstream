@@ -1,15 +1,16 @@
 import React from 'react';
 import {
-  BrowserRouter as Router,
+  Router,
   Route
 } from 'react-router-dom';
 import App from './pages/App';
 import Result from './pages/Result';
+import history from './history';
 
 const createRoutes = () => (
-  <Router>
+  <Router history={history}>
     <Route exact path="/" component={App}/>
-    <Route exact path="/result" component={Result}/>
+    <Route path="/result" component={Result}/>
   </Router>
 );
 

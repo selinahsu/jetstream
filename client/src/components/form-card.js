@@ -1,5 +1,4 @@
-import React, { useContext } from 'react';
-import { Redirect } from 'react-router-dom'
+import React, { useContext, useState } from 'react';
 
 import './form-card.scss';
 import Card from 'react-bootstrap/Card';
@@ -7,7 +6,9 @@ import Row from 'react-bootstrap/Row';
 
 import { DataContext } from '../contexts/DataContext';
 
-function UnavailableMssg(props) {
+import history from '../history';
+
+function UnavailableMssg() {
   const info = useContext(DataContext);
   if (info.flightType !== "multi-city") 
     return null;
@@ -21,9 +22,29 @@ function UnavailableMssg(props) {
 function FormContent(props) {
   const info = useContext(DataContext);
 
+  const [destination, setDestination] = useState('');
+  const [departure, setDeparture] = useState('');
+  const [passengers, setPassengers] = useState(2);
+  const [airline, setAirline] = useState('');
+  const [seat, setSeat] = useState('');
+
+  const capitalize = (str) => {
+    if (!str)
+      return str;
+    if (str.length == 1)
+      return str.toUpperCase();
+    return str.charAt(0).toUpperCase() + str.slice(1);
+  };
+
   const handleSubmit = (event) => {
     event.preventDefault();
-    props.setRedirect();
+    history.push({
+      pathname: '/result',
+      state: {
+        destination: destination,
+        departure: departure
+      } 
+    });
   };
 
   if (info.flightType === "multi-city") 
@@ -35,10 +56,10 @@ function FormContent(props) {
         <input
           type="text"
           placeholder="e.g. Austin"
-          value={info.destination}
+          value={destination}
           onChange={(event) => {
-            info.setDestination(event.target.value)
-            console.log(info.destination);
+            setDestination(capitalize(event.target.value));
+            console.log(destination);
           }}
           required
         />
@@ -49,10 +70,10 @@ function FormContent(props) {
         <input
           type="text"
           placeholder="e.g. London"
-          value={info.departure}
+          value={departure}
           onChange={(event) => {
-            info.setDeparture(event.target.value)
-            console.log(info.departure);
+            setDeparture(capitalize(event.target.value));
+            console.log(departure);
           }}
           required
         />
@@ -63,10 +84,9 @@ function FormContent(props) {
         type="range" 
         className="slider mb-3" 
         min="0" max="10" 
-        value={info.passengers}
+        value={passengers}
         onChange={(event) => {
-          info.setPassengers(event.target.value)
-          //console.log(info.passengers);
+          setPassengers(event.target.value)
         }}
       /> 
       <span className="ml-3">{info.passengers}</span>
@@ -75,8 +95,7 @@ function FormContent(props) {
       <label>Airline:</label><br />
       <select id="seat" className="mb-3" defaultValue={'default'}
         onChange={(event) => {
-          info.setAirline(event.target.value)
-          //console.log(info.airline);
+          setAirline(event.target.value)
         }}
       >
         <option value="default" disabled>Select an option</option>
@@ -90,8 +109,7 @@ function FormContent(props) {
       <label>Seat Class:</label><br />
       <select id="seat" className="mb-4" defaultValue={'default'}
         onChange={(event) => {
-          info.setSeat(event.target.value)
-          //console.log(info.seat);
+          setSeat(event.target.value)
         }}
       >
         <option value="default" disabled>Select an option</option>
@@ -110,22 +128,11 @@ class FormCard extends React.Component {
   state = {
     redirect: false
   }
-  setRedirect = () => {
-    this.setState({
-      redirect: true
-    })
-  }
-  renderRedirect = () => {
-    if (this.state.redirect) {
-      return <Redirect to='/result' />
-    }
-  }
   render() {
     /* Destructure the context */
     const { flightType, setFlightType } = this.context;
     return (
       <Card className="mt-5 p-5">
-        {this.renderRedirect()}
         <form>
         <Row className="justify-content-between px-3 pb-3">
           <div>
@@ -133,7 +140,8 @@ class FormCard extends React.Component {
               type="radio" 
               checked={flightType==="one-way"} 
               onChange={(event) => {
-                setFlightType(event.target.value)
+                setFlightType(event.target.value);
+                this.flightType = event.target.value;
               }}
               id="one-way" 
               name="flight-type" 
@@ -166,7 +174,7 @@ class FormCard extends React.Component {
         </Row>
         </form>
         <UnavailableMssg/>
-        <FormContent setRedirect={this.setRedirect}/>
+        <FormContent/>
       </Card>
     );
   }

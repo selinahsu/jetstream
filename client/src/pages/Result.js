@@ -40,7 +40,8 @@ class Result extends React.Component{
           </div>
         </div>
       );
-    
+
+    const location = this.props.location.state;
     return (
       <div className="result">  
         <NavbarComp />
@@ -48,7 +49,7 @@ class Result extends React.Component{
           <Row className="mb-5">
             <Col xs={5}>
               <DataContextProvider>
-                <MapCard />
+                <MapCard destination={location.destination} departure={location.departure}/>
               </DataContextProvider>
               <WorkCard />
             </Col>
