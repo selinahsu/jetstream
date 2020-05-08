@@ -1,9 +1,9 @@
 import React, { useContext } from 'react';
+import { Redirect } from 'react-router-dom'
+
 import './form-card.scss';
 import Card from 'react-bootstrap/Card';
 import Row from 'react-bootstrap/Row';
-
-import axios from 'axios';
 
 import { DataContext } from '../contexts/DataContext';
 
@@ -23,12 +23,13 @@ function FormContent(props) {
 
   const handleSubmit = (event) => {
     event.preventDefault();
+    props.setRedirect();
   };
 
   if (info.flightType === "multi-city") 
     return null;
   return (
-    <form onSubmit={props.handleSubmit} action="/result">
+    <form onSubmit={handleSubmit}>
       <div className="amt-input">
         <label>Destination</label><br />
         <input
@@ -72,13 +73,13 @@ function FormContent(props) {
       <br />
 
       <label>Airline:</label><br />
-      <select id="seat" className="mb-3"
+      <select id="seat" className="mb-3" defaultValue={'default'}
         onChange={(event) => {
           info.setAirline(event.target.value)
           //console.log(info.airline);
         }}
       >
-        <option value="" selected disabled>Select an option</option>
+        <option value="default" disabled>Select an option</option>
         <option value="economy">Delta Airlines</option>
         <option value="business">American Airlines</option>
         <option value="first-class">Southwest Airlines</option>
@@ -87,13 +88,13 @@ function FormContent(props) {
       <br />
 
       <label>Seat Class:</label><br />
-      <select id="seat" className="mb-4"
+      <select id="seat" className="mb-4" defaultValue={'default'}
         onChange={(event) => {
           info.setSeat(event.target.value)
           //console.log(info.seat);
         }}
       >
-        <option value="" selected disabled>Select an option</option>
+        <option value="default" disabled>Select an option</option>
         <option value="economy">Economy</option>
         <option value="business">Business</option>
         <option value="first-class">First Class</option>
@@ -107,28 +108,24 @@ function FormContent(props) {
 class FormCard extends React.Component {
   static contextType = DataContext;
   state = {
-    
+    redirect: false
   }
-  // handleSubmit = () => {
-  //   const info = this.context;
-  //   axios.post('/api/flight', {
-  //     params: {
-  //       destination: info.destination,
-  //       departure: info.departure
-  //     }
-  //   })
-  //   .then((response) => {
-  //     console.log(response);
-  //     console.log(`here is the destination: ${this.context.setDestination}`);
-  //   }, (error) => {
-  //     console.log(error);
-  //   });
-  // }
+  setRedirect = () => {
+    this.setState({
+      redirect: true
+    })
+  }
+  renderRedirect = () => {
+    if (this.state.redirect) {
+      return <Redirect to='/result' />
+    }
+  }
   render() {
     /* Destructure the context */
     const { flightType, setFlightType } = this.context;
     return (
       <Card className="mt-5 p-5">
+        {this.renderRedirect()}
         <form>
         <Row className="justify-content-between px-3 pb-3">
           <div>
@@ -169,7 +166,7 @@ class FormCard extends React.Component {
         </Row>
         </form>
         <UnavailableMssg/>
-        <FormContent />
+        <FormContent setRedirect={this.setRedirect}/>
       </Card>
     );
   }

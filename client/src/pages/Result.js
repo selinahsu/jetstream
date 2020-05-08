@@ -34,7 +34,7 @@ class Result extends React.Component{
           <NavbarComp />
           <div style={{display: 'flex',  justifyContent:'center', alignItems:'center', height: '100vh'}}>
             <div style={{textAlign: 'center'}}>
-              <img src={plane} height="75"/>
+              <img src={plane} alt="Plane Icon" height="75"/>
               <p>Your request is in flight . . . </p>
             </div>
           </div>

@@ -1,8 +1,6 @@
-import React from 'react';
 import ReactDOM from 'react-dom';
 import createRoutes from './routes';
 import './index.css';
-import App from './pages/App';
 import * as serviceWorker from './serviceWorker';
 
 const routes = createRoutes();

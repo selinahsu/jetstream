@@ -15,7 +15,7 @@ function MapCard(props) {
     <Card className="mb-4 p-5">
       <h5>Flying <b>{ info.departure }</b> to <b>{ info.destination }</b></h5>
       <p>Distance: 1302 miles</p>
-      <img src={map} className="mb-4" width="100%"/>
+      <img src={map} alt="Placeholder Map" className="mb-4" width="100%"/>
       <Button 
         href='/'
         className="w-25"
