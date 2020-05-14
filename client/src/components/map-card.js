@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React from 'react';
 
 import map from '../assets/map.png';
 import Button from 'react-bootstrap/Button'
@@ -11,7 +11,7 @@ function MapCard(props) {
   return (
     <Card className="mb-4 p-5">
       <h5>Flying <b>{ props.departure }</b> to <b> {props.destination} </b></h5>
-      <p>Distance: 1302 miles</p>
+      <p>Distance: { props.distance } km</p>
       <img src={map} alt="Placeholder Map" className="mb-4" width="100%"/>
       <Button 
         href='/'

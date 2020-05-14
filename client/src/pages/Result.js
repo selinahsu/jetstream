@@ -12,16 +12,43 @@ import Col from 'react-bootstrap/Col';
 
 import DataContextProvider from '../contexts/DataContext';
 
+import axios from 'axios';
+
 import './Result.scss';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import { withRouter } from 'react-router';
 
 class Result extends React.Component{
   //static contextType = DataContext;
   state = {
-    loading: true
+    loading: true,
+    distance: '',
+    emissions: '',
+    fuel: ''
   }
   componentDidMount() {
+    axios.post('/api/distance', {
+      params: {
+        destination: this.props.location.state.destination,
+        departure: this.props.location.state.departure,
+        passengers: this.props.location.state.passengers,
+        flightType: this.props.location.state.flightType
+      }
+    }).then(res => {
+      this.setState({
+        distance: res.data.distance,
+        emissions: res.data.emissions,
+        fuel: res.data.fuel
+      });
+      console.log(`distance: ${this.state.distance}`);
+      console.log(`emissions: ${this.state.emissions}`);
+      console.log(`fuel: ${this.state.fuel}`);
+    });
+
     setTimeout(() => {
+      //Checking if the location data is avail with this.props.location?
+      // console.log(this.props.location.state.destination);
+      // console.log(this.props.location.state.departure);
       this.setState({
         loading: false
       });
@@ -41,7 +68,7 @@ class Result extends React.Component{
         </div>
       );
 
-    const location = this.props.location.state;
+    const location = this.props.location;
     return (
       <div className="result">  
         <NavbarComp />
@@ -49,13 +76,13 @@ class Result extends React.Component{
           <Row className="mb-5">
             <Col xs={5}>
               <DataContextProvider>
-                <MapCard destination={location.destination} departure={location.departure}/>
+                <MapCard destination={location.state.destination} departure={location.state.departure} distance={this.state.distance}/>
               </DataContextProvider>
               <WorkCard />
             </Col>
             <Col xs={7}>
               <DataContextProvider>
-                <StatsCard />
+                <StatsCard emissions={this.state.emissions} fuel={this.state.fuel}/>
               </DataContextProvider>
               <OffsetCard />
             </Col>
@@ -66,4 +93,4 @@ class Result extends React.Component{
   }
 }
 
-export default Result;
+export default withRouter(Result);

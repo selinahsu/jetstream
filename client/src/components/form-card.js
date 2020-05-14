@@ -42,8 +42,10 @@ function FormContent(props) {
       pathname: '/result',
       state: {
         destination: destination,
-        departure: departure
-      } 
+        departure: departure,
+        passengers: passengers,
+        flightType: info.flightType
+      }
     });
   };
 

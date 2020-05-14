@@ -8,16 +8,16 @@ class Splash extends React.Component {
   state = {
     info: "",
   }
-  componentDidMount() {
-    axios.post('/api/appletest', {
-      params: {
-        name: 'Flavio'
-      }
-    }).then(res => {
-      this.setState({info: res.data});
-      console.log(this.state.info);
-    });
-  }
+  // componentDidMount() {
+  //   axios.post('/api/appletest', {
+  //     params: {
+  //       name: 'Flavio'
+  //     }
+  //   }).then(res => {
+  //     this.setState({info: res.data});
+  //     console.log(this.state.info);
+  //   });
+  // }
   render() {
     return (
       <div className="mt-5 splash">
