@@ -6,12 +6,12 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 
 To run on your the app from the root repository, run 
 
-## `npm run dev`
+#### `npm run dev`
 
 You may need to install the following dependencies for the above command to work: 
 
-## `npm i concurrently`
-## `npm i nodemon`
+#### `npm i concurrently`
+#### `npm i nodemon`
 
 
 ## Notes on Calculated Values
@@ -19,12 +19,12 @@ You may need to install the following dependencies for the above command to work
 Using figures obtained from [carbonindependent.org](https://www.carbonindependent.org/22.html):
 
 ### Boeing 737-400
-CO2 Emissions: 0.115 kg per passenger km 
-Fuel Usage: 0.0366 kg per passenger km 
+CO2 Emissions: 0.115 kg per passenger km  
+Fuel Usage: 0.0366 kg per passenger km  
 
 ### Boeing 747-400
-CO2 Emissions: 0.101 kg per passenger km 
-Fuel Usage: 0.0322 kg per passenger km 
+CO2 Emissions: 0.101 kg per passenger km  
+Fuel Usage: 0.0322 kg per passenger km  
 
 The 737 is typically used for short international flights, while the 747 is used for long haul flights. In this project, a long haul flight is designated by being 10+ hours, which can be roughly approximated as 8,280 km (the distance between Tokyo and San Francisco). 
 
