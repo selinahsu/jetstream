@@ -91,7 +91,7 @@ function FormContent(props) {
           setPassengers(event.target.value)
         }}
       /> 
-      <span className="ml-3">{info.passengers}</span>
+      <span className="ml-3">{passengers}</span>
       <br />
 
       <label>Airline:</label><br />
