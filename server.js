@@ -20,8 +20,10 @@ app.post('/api/distance', getDistance, getRoundTripMultiplier, getEmissions, get
 /***************** Middleware *****************/
 
 async function getDistance(req, res, next) { 
+  const destination = req.body.params.destination;
+  const departure = req.body.params.departure;
   const response = await axios({
-    url: 'https://www.distance24.org/route.json?stops=Toronto|Berlin',
+    url: `https://www.distance24.org/route.json?stops=${destination}|${departure}`,
     method: 'get'
   });
   console.log(response.data.distance);
